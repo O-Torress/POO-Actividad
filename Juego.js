@@ -23,16 +23,16 @@ class Guerrero extends Personaje {
   }
 
   atacar_con_arma(objetivo) {
-    this.array_de_armas = this.array_de_armas [Math.floor(Math.random()*3)]; 
-    let danoTotal = this.dano + this.array_de_armas.dano;
+    const armaElegida = this.array_de_armas[Math.floor(Math.random() * this.array_de_armas.length)];
+    let danoTotal = this.dano + armaElegida.dano;
     console.log(
-      `El guerrero ${this.nombre} esta atacando a ${objetivo.nombre} con ${this.array_de_armas.nombre} y le hizo ${danoTotal} puntos de daño.`);
+      `El guerrero ${this.nombre} esta atacando a ${objetivo.nombre} con ${armaElegida.nombre} y le hizo ${danoTotal} puntos de daño.`);
     
-    let danoa = danoTotal - objetivo.defensa > 0 ? danoTotal - objetivo.defensa : 0;
+    let dano = danoTotal - objetivo.defensa > 0 ? danoTotal - objetivo.defensa : 0;
 
-    objetivo.vida -= danoa;
+    objetivo.vida -= dano;
     
-    console.log(`${objetivo.nombre} recibe ${danoa} de daño, su vida ahora es ${objetivo.vida}`);
+    console.log(`${objetivo.nombre} recibe ${dano} de daño, su vida ahora es ${objetivo.vida}.`);
 
     if (objetivo.vida <= 0) {
       console.log(`${objetivo.nombre} ha sido derrotado por ${this.nombre}`);
@@ -47,10 +47,20 @@ class Mago extends Personaje {
   }
 
   atacar_con_hechizo(objetivo) {
-    this.array_de_hechizos = this.array_de_hechizos [Math.floor(Math.random()*3)];
-    let danoTotal = this.dano + this.array_de_hechizos.dano;
+    const armaElegida = this.array_de_hechizos[Math.floor(Math.random() * this.array_de_hechizos.length)];
+    let danoTotal = this.dano + armaElegida.dano;
     console.log(
-      `El Mago ${this.nombre} esta atacando a ${objetivo.nombre} con el hechizo de ${this.array_de_hechizos.nombre} y le hizo ${danoTotal} puntos de daño`);
+      `El Mago ${this.nombre} esta atacando a ${objetivo.nombre} con el hechizo de ${armaElegida.nombre} y le hizo ${danoTotal} puntos de daño`);
+
+    let dano = danoTotal - objetivo.defensa > 0 ? danoTotal - objetivo.defensa : 0;
+
+    objetivo.vida -= dano;
+    
+    console.log(`${objetivo.nombre} recibe ${dano} de daño, su vida ahora es ${objetivo.vida}.`);
+
+    if (objetivo.vida <= 0) {
+      console.log(`${objetivo.nombre} ha sido derrotado por ${this.nombre}`);
+    }
   }
 }
 //Arquero
@@ -61,25 +71,56 @@ class Arquero extends Personaje {
   }
 
   disparar_con_flechas(objetivo) {
-    this.array_de_flechas = this.array_de_flechas [Math.floor(Math.random()*3)];
-    let danoTotal = this.dano + this.array_de_flechas.dano;
+    const armaElegida = this.array_de_flechas[Math.floor(Math.random() * this.array_de_flechas.length)];
+    let danoTotal = this.dano + armaElegida.dano;
     console.log(
-      `El Arquero ${this.nombre} esta atacando a ${objetivo.nombre} con las flechas echas de ${this.array_de_flechas.nombre} y le hizo ${danoTotal} puntos de daño`);
+      `El Arquero ${this.nombre} esta atacando a ${objetivo.nombre} con las flechas echas de ${armaElegida.nombre} y le hizo ${danoTotal} puntos de daño`);
+    
+    let dano = danoTotal - objetivo.defensa > 0 ? danoTotal - objetivo.defensa : 0;
+
+    objetivo.vida -= dano;
+    
+    console.log(`${objetivo.nombre} recibe ${dano} de daño, su vida ahora es ${objetivo.vida}.`);
+
+    if (objetivo.vida <= 0) {
+      console.log(`${objetivo.nombre} ha sido derrotado por ${this.nombre}`);
+    }
   }
 }
 
 let personaje1 = new Guerrero("Floqui", 100, 50, 50, 10,   
-  [ {nombre : "espada" , dano : 25 }, {nombre : "cuchilo" , dano : 20 }, {nombre : "lanza" , dano : 15 }]);
+  [ 
+    {nombre : "espada" , dano : 25 }, 
+    {nombre : "cuchilo" , dano : 20 }, 
+    {nombre : "lanza" , dano : 15 }
+  ]);
 let personaje2 = new Guerrero("Asquelad", 100, 45, 35, 10, 
-  [ {nombre : "daga" , dano : 10 },{nombre : "mazo" , dano : 20 }, {nombre : "hacha" , dano : 25 }]);
-let personaje3 = new Mago("Mandrake", 150, 60, 35, 6,      
-  [ {nombre : "veneno" , dano : 35 }, {nombre : "fuego" , dano : 30 }, {nombre : "hielo" , dano : 20 }]);
-let personaje4 = new Mago("Gandalf", 160, 45, 35, 5,       
-  [ {nombre : "Avada Kadabra", dano : 25}, {nombre : "imperio", dano : 30}, {nombre : "crucio", dano : 20}]);
+  [ 
+    {nombre : "daga" , dano : 10 },
+    {nombre : "mazo" , dano : 20 }, 
+    {nombre : "hacha" , dano : 25 }
+
+  ]);
+let personaje3 = new Mago("Mandrake", 110, 60, 35, 6,      
+  [ 
+    {nombre : "veneno" , dano : 35 }, 
+    {nombre : "fuego" , dano : 30 }, 
+    {nombre : "hielo" , dano : 20 }
+
+  ]);
+let personaje4 = new Mago("Gandalf", 110, 45, 35, 5,       
+  [ 
+    {nombre : "Avada Kadabra", dano : 25}, 
+    {nombre : "imperio", dano : 30}, 
+    {nombre : "crucio", dano : 20}
+
+  ]);
 let personaje5 = new Arquero("Robin", 100, 65, 40, 8,      
-  [ {nombre : "Piedra" , dano : 25 }, {nombre : "cobre" , dano : 30 }, {nombre : "hierro" , dano : 35 }]);
+  [ 
+    {nombre : "Piedra" , dano : 25 }, 
+    {nombre : "cobre" , dano : 30 }, 
+    {nombre : "hierro" , dano : 35 }
+
+  ]);
 
 const listaPersonajes = [personaje1,personaje2,personaje3,personaje4,personaje5];
-
-personaje5.disparar_con_flechas(personaje1);
-personaje1.atacar_con_arma(personaje2);
