@@ -132,17 +132,14 @@ function elegirObjetivo(atacante, listaP) {
   return vivos[Math.floor(Math.random() * vivos.length)];
 }
 
-
 console.log("\n--- INICIA LA BATALLA ---\n");
 listaP.forEach(p => p.saludar());
 
 let ronda = 1;
 
-
 while (listaP.filter(p => p.vida > 0).length > 1) {
   console.log(`\n========= RONDA ${ronda} =========`);
 
-  
   listaP.forEach(p => {
     p.turno = Math.floor(Math.random() * p.velocidad) + 1;
   });
@@ -151,8 +148,6 @@ while (listaP.filter(p => p.vida > 0).length > 1) {
 
   for (let atacante of listaP) {
     if (atacante.vida <= 0) continue;
-
-    
 
     let objetivo = elegirObjetivo(atacante, listaP);
     if (!objetivo) continue;
@@ -172,11 +167,9 @@ while (listaP.filter(p => p.vida > 0).length > 1) {
     }
   }
 
-  
   listaP = listaP.filter(p => p.vida > 0);
 
   ronda++;
 }
-
 
 console.log(`\n EL GANADOR ES El ${listaP[0].constructor.name} ${listaP[0].nombre} `);
